@@ -10,9 +10,18 @@ import NextServer from 'next/server'
 // import Next_ from 'next/'
 // import TestClient from '../appkit/TestClient.client.js'
 import rootcss from './root.css'
+import { lazy, Suspense } from 'react'
+import dynamic from 'next/dynamic'
+
+// const { WkDevTool } = dynamic(
+//     () => import('../appkit/WkDevTool.js').then((mod) => mod),
+//     {
+//         suspense: true,
+//         ssr: false,
+//     },
+// )
 
 import NextClientContext from 'appkit/NextClientContext.client'
-// import WkDevTool from 'appkit/WkDevTool.client.js'
 
 const css = ``
 
@@ -276,48 +285,50 @@ export default function Root(props) {
             </head>
             <body id="body" style={styles.body} data-pointerevents="none">
                 {/* <EventsClient> */}
+                {/* <EventsClient> */}
                 {jsx(
                     'main',
                     {
-                        id: 'navigationsplitview',
+                        id: 'navigation-split-view',
                         children: [
                             jsx(
                                 'article',
                                 {
-                                    id: 'navigationsidebar',
-                                    'data-navigationcolumn': 'sidebar',
+                                    id: 'navigation-sidebar',
+                                    'data-navigation-column': 'sidebar',
                                     children: [
                                         jsx(
                                             'div',
                                             {
-                                                'data-navigationbackground':
+                                                'data-navigation-background':
                                                     'sidebar',
                                             },
-                                            'navigationbackground',
+                                            'navigation-background',
                                         ),
                                         jsx(
                                             'header',
                                             {
-                                                'data-navigationbar': 'sidebar',
+                                                'data-navigation-bar':
+                                                    'sidebar',
                                                 children: [
                                                     jsx(
                                                         'h3',
                                                         {
-                                                            'data-navigationtitle':
+                                                            'data-navigation-title':
                                                                 'sidebar',
                                                             children:
                                                                 'Sidebar Title',
                                                         },
-                                                        'navigationtitle',
+                                                        'navigation-title',
                                                     ),
                                                 ],
                                             },
-                                            'navigationbar',
+                                            'navigation-bar',
                                         ),
                                         jsx(
                                             'section',
                                             {
-                                                'data-navigationbody':
+                                                'data-navigation-body':
                                                     'sidebar',
                                                 children: (
                                                     <>
@@ -325,49 +336,50 @@ export default function Root(props) {
                                                     </>
                                                 ),
                                             },
-                                            'navigationbody',
+                                            'navigation-body',
                                         ),
                                     ],
                                 },
-                                'navigationsidebar',
+                                'navigation-sidebar',
                             ),
                             jsx(
                                 'article',
                                 {
-                                    id: 'navigationcontent',
-                                    'data-navigationcolumn': 'content',
+                                    id: 'navigation-content',
+                                    'data-navigation-column': 'content',
                                     children: [
                                         jsx(
                                             'div',
                                             {
-                                                'data-navigationbackground':
+                                                'data-navigation-background':
                                                     'content',
                                             },
-                                            'navigationbackground',
+                                            'navigation-background',
                                         ),
                                         jsx(
                                             'header',
                                             {
-                                                'data-navigationbar': 'content',
+                                                'data-navigation-bar':
+                                                    'content',
                                                 children: [
                                                     jsx(
                                                         'h3',
                                                         {
-                                                            'data-navigationtitle':
+                                                            'data-navigation-title':
                                                                 'content',
                                                             children:
                                                                 'Content Title',
                                                         },
-                                                        'navigationtitle',
+                                                        'navigation-title',
                                                     ),
                                                 ],
                                             },
-                                            'navigationbar',
+                                            'navigation-bar',
                                         ),
                                         jsx(
                                             'section',
                                             {
-                                                'data-navigationbody':
+                                                'data-navigation-body':
                                                     'content',
                                                 children: (
                                                     <>
@@ -402,49 +414,50 @@ export default function Root(props) {
                                                     </>
                                                 ),
                                             },
-                                            'navigationbody',
+                                            'navigation-body',
                                         ),
                                     ],
                                 },
-                                'navigationcontent',
+                                'navigation-content',
                             ),
                             jsx(
                                 'article',
                                 {
-                                    id: 'navigationdetail',
-                                    'data-navigationcolumn': 'detail',
+                                    id: 'navigation-detail',
+                                    'data-navigation-column': 'detail',
                                     children: [
                                         jsx(
                                             'div',
                                             {
-                                                'data-navigationbackground':
+                                                'data-navigation-background':
                                                     'detail',
                                             },
-                                            'navigationbackground',
+                                            'navigation-background',
                                         ),
                                         jsx(
                                             'header',
                                             {
-                                                'data-navigationbar': 'detail',
+                                                'data-navigation-bar': 'detail',
                                                 children: [
                                                     jsx(
                                                         'h3',
                                                         {
-                                                            'data-navigationtitle':
+                                                            'data-navigation-title':
                                                                 'detail',
                                                             children:
                                                                 'Detail Title',
                                                         },
-                                                        'navigationtitle',
+                                                        'navigation-title',
                                                     ),
                                                 ],
                                             },
-                                            'navigationbar',
+                                            'navigation-bar',
                                         ),
                                         jsx(
                                             'section',
                                             {
-                                                'data-navigationbody': 'detail',
+                                                'data-navigation-body':
+                                                    'detail',
                                                 children: (
                                                     <>
                                                         <h5>Body Content</h5>
@@ -456,17 +469,18 @@ export default function Root(props) {
                                                     </>
                                                 ),
                                             },
-                                            'navigationbody',
+                                            'navigation-body',
                                         ),
                                     ],
                                 },
-                                'navigationdetail',
+                                'navigation-detail',
                             ),
                         ],
                     },
-                    'navigationsplitview',
+                    'navigation-split-view',
                 )}
-                {/* </EventsClient> */}
+                <EventsClient></EventsClient>
+                {/* {__CLIENT__ && <WkDevTool />} */}
             </body>
         </html>
     )

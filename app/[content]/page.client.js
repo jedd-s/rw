@@ -22,8 +22,22 @@ export default function Page({ children }) {
 
     return (
         <>
-            <div id="page">
+            <div id="page" style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>What am i doing</div>
+                <div>
+                    <input
+                        type="text"
+                        data-pointerevents="all"
+                        style={{
+                            caretColor: 'rgba(200,50,1,1)',
+                            height: 44,
+                            fontSize: 16,
+                            padding: '0px 12px',
+                            lineHeight: 18,
+                            width: 200,
+                        }}
+                    />
+                </div>
             </div>
             <React.Suspense fallback={null}>{children}</React.Suspense>
         </>

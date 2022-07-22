@@ -1,17 +1,27 @@
 import { useLayoutEffect } from 'appkit/Hooks'
+import WkDevTool from 'appkit/WkDevTool.client'
+
+import R from 'lib/r'
 import { resizeElement } from 'modules/@motionone/dom/gestures/resize/handle-element'
+import { resizeViewport } from 'modules/@motionone/dom/gestures/resize/handle-viewport'
 import { resizeWindow } from 'modules/@motionone/dom/gestures/resize/handle-window'
 
 function EventsClient({ children }) {
-    useLayoutEffect(() => {
+    R.useLayoutEffect(() => {
         if (__CLIENT__) {
             // console.log('Window')
-            resizeWindow((...args) => {
+            resizeViewport((args) => {
                 console.log(`Window Resize`, args)
             })
         }
     }, [])
-    return children
+    return (
+        <>
+            {children}
+
+            <WkDevTool />
+        </>
+    )
 }
 
 export default EventsClient

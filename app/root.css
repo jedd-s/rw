@@ -142,8 +142,10 @@ p a {
     line-height: 0px;
 }
 
-#navigationsplitview {
-    --navigation-active-column-index: 1;
+#navigation-split-view {
+    /**
+    Should reflect the number of /segments/in/path  */
+    --navigation-active-column-index: 0;
 
     --navigation-sidebar-visibility: 1;
     --navigation-content-visibility: 1;
@@ -174,23 +176,18 @@ p a {
     height: var(--navigation-height);
 }
 
-#navigationsidebar {
+#navigation-sidebar {
     --navigation-column-index: 0;
 }
-#navigationcontent {
+#navigation-content {
     --navigation-column-index: 1;
 }
-#navigationdetail {
+#navigation-detail {
     --navigation-column-index: 2;
 }
 
-[data-navigationcolumn] {
-    --navigation-column-x: calc(100vw * (var(--navigation-active-column-index) + var(--navigation-active-column-index)));
-    /* --navigation-column-x: calc(-100vw * (var(--navigation-column-index) + var(--navigation-active-column-index))); */
-    --navigation-offset-x: calc(100vw * (var(--navigation-column-index) - var(--navigation-active-column-index)));
-    --navigation-column-x: calc(100vw * (var(--navigation-column-index) - var(--navigation-active-column-index)));
-    /* --navigation-offset-x: calc(-20vw * (var(--navigation-column-index) - var(--navigation-active-column-index))); */
-    /* --navigation-offset-x: calc(-20vw * (var(--navigation-column-index) - var(--navigation-active-column-index))); */
+[data-navigation-column] {
+    --navigation-column-x: calc((100vw * var(--navigation-column-index)) - (100vw * var(--navigation-active-column-index)));
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -204,7 +201,7 @@ p a {
 
     /* overflow-x:hidden; */
 }
-[data-navigationbackground] {
+[data-navigation-background] {
     z-index: -1;
     display: block;
     position: fixed;
@@ -214,9 +211,9 @@ p a {
     height: var(--navigation-height);
     background-color: rgba(8, 8, 8, 1);
 }
-[data-navigationtitle] {
+[data-navigation-title] {
 }
-[data-navigationbar] {
+[data-navigation-bar] {
     z-index: -1;
     display: block;
     position: fixed;
@@ -226,68 +223,73 @@ p a {
     height: 70px;
     background-color: rgba(8, 8, 8, 1);
 }
-[data-navigationbody] {
+[data-navigation-body] {
     min-height: 5000px;
     overflow-y: scroll;
 }
 
 @media (min-width: calc(280px +  375px + 360px)) {
-    #navigationsplitview {
+    #navigation-split-view {
         --navigation-sidebar-max-width: 280px;
         --navigation-content-max-width: 375px;
         --navigation-detail-max-width: calc(var(--navigation-width) - (var(--navigation-sidebar-max-width) - var(--navigation-content-max-width)));
+        /* FIX VALUES FOR -VISIBILITY */
+        --navigation-sidebar-x: calc((0px - var(--navigation-sidebar-max-width)) + (var(--navigation-sidebar-max-width) * var(--navigation-sidebar-visibility)));
+
+        --navigation-content-x: calc(var(--navigation-sidebar-max-width) * var(--navigation-sidebar-visibility));
+        --navigation-detail-x: calc(var(--navigation-content-x) + (var(--navigation-content-max-width) * var(--navigation-content-visibility)));
     }
 
-    [data-navigationcolumn] {
+    [data-navigation-column] {
     }
 
-    #navigationsidebar {
-        --navigation-column-x: calc(var(--navigation-sidebar-max-width) * 1);
-        --navigation-offset-x: calc(1 * var(--navigation-sidebar-visibility));
+    #navigation-sidebar {
         background-color: rgba(8, 8, 8, 1);
+        --navigation-column-x: calc(var(--navigation-sidebar-x));
+        z-index: calc((1 - var(--navigation-content-visibility)) + var(--navigation-sidebar-visibility));
     }
-    #navigationcontent {
-        --navigation-column-x: calc(var(--navigation-sidebar-max-width) * var(--navigation-sidebar-visibility));
-        --navigation-offset-x: 0px;
+    #navigation-content {
         background-color: rgba(8, 8, 8, 1);
+        --navigation-column-x: calc(var(--navigation-content-x));
+        z-index: calc(1 + var(--navigation-content-visibility));
     }
 
-    #navigationdetail {
-        --navigation-column-x: calc((var(--navigation-sidebar-max-width) * var(--navigation-sidebar-visibility)) + (var(--navigation-content-max-width) * var(--navigation-content-visibility)));
-        --navigation-offset-x: 0px;
+    #navigation-detail {
         background-color: rgba(8, 8, 8, 1);
+        --navigation-column-x: calc(var(--navigation-detail-x));
+        z-index: calc(2 + var(--navigation-detail-visibility));
     }
 
-    [data-navigationbackground] {
+    [data-navigation-background] {
     }
-    [data-navigationtitle] {
+    [data-navigation-title] {
     }
-    [data-navigationbar] {
+    [data-navigation-bar] {
     }
-    [data-navigationbody] {
+    [data-navigation-body] {
     }
 }
-#navigationsidebar {
+#navigation-sidebar {
     max-width: var(--navigation-sidebar-max-width);
-    transform: translate3d(calc(var(--navigation-column-x) - var(--navigation-offset-x) - (var(--navigation-sidebar-max-width) * 1)), 0px, 0px);
+    transform: translate3d(var(--navigation-column-x), 0px, 0px);
 }
 
-#navigationcontent {
+#navigation-content {
     max-width: var(--navigation-content-max-width);
-    transform: translate3d(calc(var(--navigation-column-x) - var(--navigation-offset-x)), 0px, 0px);
+    transform: translate3d(var(--navigation-column-x), 0px, 0px);
 }
 
-#navigationdetail {
+#navigation-detail {
     max-width: var(--navigation-detail-max-width);
-    transform: translate3d(calc(var(--navigation-column-x) - var(--navigation-offset-x)), 0px, 0px);
+    transform: translate3d(var(--navigation-column-x), 0px, 0px);
 }
 
-#navigationsidebar > [data-navigationbackground] {
+#navigation-sidebar > [data-navigation-background] {
     background-color: var(--navigation-sidebar-background);
 }
-#navigationcontent > [data-navigationbackground] {
+#navigation-content > [data-navigation-background] {
     background-color: var(--navigation-content-background);
 }
-#navigationdetail > [data-navigationbackground] {
+#navigation-detail > [data-navigation-background] {
     background-color: var(--navigation-detail-background);
 }
