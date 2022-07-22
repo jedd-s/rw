@@ -1,0 +1,10 @@
+{
+  "javascript.validate.enable": false,
+  "typescript.suggest.enabled": false,
+  "typescript.validate.enable": false,
+  "typescript.suggest.paths": false,
+  "typescript.suggestionActions.enabled": false,
+  "javascript.suggest.enabled": false,
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "javascript.suggestionActions.enabled": false
+}

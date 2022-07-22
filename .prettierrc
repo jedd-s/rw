@@ -1,0 +1,31 @@
+{
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "overrides": [
+        {
+            "files": ["*.html", "**/*.html"],
+            "options": {
+                "printWidth": 250,
+                "parser": "html",
+                "tabWidth": 4
+            }
+        },
+        {
+            "files": ["*.css", "**/*.css", "*.scss", "**/*.scss"],
+            "options": {
+                "printWidth": 250,
+                "parser": "scss",
+                "tabWidth": 4
+            }
+        },
+        {
+            "files": ["*.json"],
+            "options": {
+                "parser": "json",
+                "tabWidth": 2
+            }
+        }
+    ]
+}

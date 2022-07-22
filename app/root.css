@@ -1,0 +1,293 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    word-wrap: break-word;
+    text-decoration: none !important;
+    cursor: default;
+    touch-action: inherit;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-drag: none !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    color: inherit;
+    vertical-align: baseline;
+}
+
+:root {
+    text-rendering: optimizeLegibility;
+    font-family: -apple-system, system-ui, sans-serif;
+    --fs: 15.5px;
+    --lh: 2em;
+    --fw: normal;
+    font-size: var(--fs);
+    line-height: var(--lh);
+    font-weight: var(--fw);
+    color: rgb(183, 193, 206);
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100;
+    --safeareainsettop: max(env(safe-area-inset-top), 2px);
+    --safeareainsetright: max(env(safe-area-inset-right), 2px);
+    --safeareainsetbottom: max(env(safe-area-inset-bottom), 2px);
+    --safeareainsetleft: max(env(safe-area-inset-left), 2px);
+    --topcontentinset: calc(var(--safeareainsettop) + 51px - 0.5px);
+    --topcontentinsetlarge: calc(var(--safeareainsettop) + 51px - 0.5px + 41px + 1px);
+    --offsettop: calc(var(--safeareainsettop) + 44px);
+    --htmlheight: calc(var(--offsettop) + 100vh);
+    background: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    color-scheme: dark only !important;
+}
+
+a {
+    color: rgba(13, 138, 255, 1);
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+div {
+    display: contents;
+}
+
+[data-layout='vstack'] {
+    display: flex;
+    flex-direction: column;
+}
+[data-layout='hstack'] {
+    display: flex;
+    flex-direction: row;
+}
+[data-layout='vgrid'] {
+    display: grid;
+    grid-auto-flow: row;
+}
+[data-layout='hgrid'] {
+    display: grid;
+    grid-auto-flow: column;
+}
+[data-layout='readable'] {
+    max-width: 600px;
+    padding: 44px 0px;
+    align-items: center;
+}
+
+[data-pointerevents='box-only'] {
+    pointer-events: auto !important;
+}
+[data-pointerevents='box-only'] > * {
+    pointer-events: none;
+}
+[data-pointerevents='box-none'] {
+    pointer-events: none !important;
+}
+[data-pointerevents='box-none'] > * {
+    pointer-events: auto;
+}
+[data-pointerevents='none'] {
+    pointer-events: none !important;
+}
+[data-pointerevents='auto'] {
+    pointer-events: auto !important;
+}
+[data-pointerevents='all'] {
+    pointer-events: all !important;
+}
+[data-touchaction='inherit'] {
+    touch-action: inherit !important;
+}
+[data-touchaction='none'] {
+    touch-action: none !important;
+}
+[data-touchaction='pan-y'] {
+    touch-action: pan-y !important;
+}
+[data-touchaction='pan-x'] {
+    touch-action: pan-x !important;
+}
+[data-touchaction='pan-xy'] {
+    touch-action: pan-x pan-y !important;
+}
+
+p::after,
+ul::after,
+ol::after,
+iframe::after {
+    min-height: 3em;
+    display: block;
+    content: ' ';
+}
+
+p,
+ul,
+ol,
+iframe {
+    max-width: 600px;
+    width: min(100%, 100vw);
+    padding: 0px 20px;
+}
+
+ul,
+ol {
+    padding: 20px;
+}
+li {
+}
+
+p a {
+    display: inline;
+    line-height: 0px;
+}
+
+#navigationsplitview {
+    --navigation-active-column-index: 1;
+
+    --navigation-sidebar-visibility: 1;
+    --navigation-content-visibility: 1;
+    --navigation-detail-visibility: 1;
+
+    --navigation-top: 0px;
+    --navigation-left: 0px;
+    --navigation-width: 100vw;
+    --navigation-height: 100vh;
+
+    --navigation-sidebar-max-width: 100vw;
+    --navigation-content-max-width: 100vw;
+    --navigation-detail-max-width: 100vw;
+
+    --navigation-sidebar-header-height: 60px;
+    --navigation-content-header-height: 100vw;
+    --navigation-detail-header-height: 100vw;
+
+    --navigation-sidebar-background: rgba(10, 10, 12, 1);
+    --navigation-content-background: rgba(8, 8, 8, 1);
+    --navigation-detail-background: rgba(0, 0, 0, 1);
+
+    display: grid;
+    position: fixed;
+    top: var(--navigation-top);
+    left: var(--navigation-left);
+    width: var(--navigation-width);
+    height: var(--navigation-height);
+}
+
+#navigationsidebar {
+    --navigation-column-index: 0;
+}
+#navigationcontent {
+    --navigation-column-index: 1;
+}
+#navigationdetail {
+    --navigation-column-index: 2;
+}
+
+[data-navigationcolumn] {
+    --navigation-column-x: calc(100vw * (var(--navigation-active-column-index) + var(--navigation-active-column-index)));
+    /* --navigation-column-x: calc(-100vw * (var(--navigation-column-index) + var(--navigation-active-column-index))); */
+    --navigation-offset-x: calc(100vw * (var(--navigation-column-index) - var(--navigation-active-column-index)));
+    --navigation-column-x: calc(100vw * (var(--navigation-column-index) - var(--navigation-active-column-index)));
+    /* --navigation-offset-x: calc(-20vw * (var(--navigation-column-index) - var(--navigation-active-column-index))); */
+    /* --navigation-offset-x: calc(-20vw * (var(--navigation-column-index) - var(--navigation-active-column-index))); */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: fixed;
+    top: var(--navigation-top);
+    left: var(--navigation-left);
+    width: var(--navigation-width);
+    height: var(--navigation-height);
+    transition: transform 650ms cubic-bezier(0.19, 1, 0.22, 1);
+    transform-origin: 0% 100%;
+
+    /* overflow-x:hidden; */
+}
+[data-navigationbackground] {
+    z-index: -1;
+    display: block;
+    position: fixed;
+    top: var(--navigation-top);
+    left: var(--navigation-left);
+    width: var(--navigation-width);
+    height: var(--navigation-height);
+    background-color: rgba(8, 8, 8, 1);
+}
+[data-navigationtitle] {
+}
+[data-navigationbar] {
+    z-index: -1;
+    display: block;
+    position: fixed;
+    top: var(--navigation-top);
+    left: var(--navigation-left);
+    width: 100%;
+    height: 70px;
+    background-color: rgba(8, 8, 8, 1);
+}
+[data-navigationbody] {
+    min-height: 5000px;
+    overflow-y: scroll;
+}
+
+@media (min-width: calc(280px +  375px + 360px)) {
+    #navigationsplitview {
+        --navigation-sidebar-max-width: 280px;
+        --navigation-content-max-width: 375px;
+        --navigation-detail-max-width: calc(var(--navigation-width) - (var(--navigation-sidebar-max-width) - var(--navigation-content-max-width)));
+    }
+
+    [data-navigationcolumn] {
+    }
+
+    #navigationsidebar {
+        --navigation-column-x: calc(var(--navigation-sidebar-max-width) * 1);
+        --navigation-offset-x: calc(1 * var(--navigation-sidebar-visibility));
+        background-color: rgba(8, 8, 8, 1);
+    }
+    #navigationcontent {
+        --navigation-column-x: calc(var(--navigation-sidebar-max-width) * var(--navigation-sidebar-visibility));
+        --navigation-offset-x: 0px;
+        background-color: rgba(8, 8, 8, 1);
+    }
+
+    #navigationdetail {
+        --navigation-column-x: calc((var(--navigation-sidebar-max-width) * var(--navigation-sidebar-visibility)) + (var(--navigation-content-max-width) * var(--navigation-content-visibility)));
+        --navigation-offset-x: 0px;
+        background-color: rgba(8, 8, 8, 1);
+    }
+
+    [data-navigationbackground] {
+    }
+    [data-navigationtitle] {
+    }
+    [data-navigationbar] {
+    }
+    [data-navigationbody] {
+    }
+}
+#navigationsidebar {
+    max-width: var(--navigation-sidebar-max-width);
+    transform: translate3d(calc(var(--navigation-column-x) - var(--navigation-offset-x) - (var(--navigation-sidebar-max-width) * 1)), 0px, 0px);
+}
+
+#navigationcontent {
+    max-width: var(--navigation-content-max-width);
+    transform: translate3d(calc(var(--navigation-column-x) - var(--navigation-offset-x)), 0px, 0px);
+}
+
+#navigationdetail {
+    max-width: var(--navigation-detail-max-width);
+    transform: translate3d(calc(var(--navigation-column-x) - var(--navigation-offset-x)), 0px, 0px);
+}
+
+#navigationsidebar > [data-navigationbackground] {
+    background-color: var(--navigation-sidebar-background);
+}
+#navigationcontent > [data-navigationbackground] {
+    background-color: var(--navigation-content-background);
+}
+#navigationdetail > [data-navigationbackground] {
+    background-color: var(--navigation-detail-background);
+}
